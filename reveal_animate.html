@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <style>
+        #topOfPage {
+            opacity: 0;
+            height: 0.01px;
+
+        }
+        section {
+            position: relative;
+            width: 100%;
+            min-height: 80vh;
+        }
+
+        #home {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        section > div > div {
+            background-color: red;
+            width: 100%;
+            min-height: 60vh;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: 1fr auto;
+            gap: 10px;
+        }
+
+        .c1-2 {
+            grid-column: auto / span 6;
+        }
+
+        .c1-3 {
+            grid-column: auto / span 4;
+        }
+
+    </style>
+</head>
+
+<body>
+<div id="topOfPage"></div>
+
+<section id="home"></section>
+
+<section id="section1">
+    <div class="row">
+        <div class="c1-2 animate__animated" data-reveal="animate__backInLeft">
+
+        </div>
+        <div class="c1-2 animate__animated animate__delay-2s" data-reveal="animate__backInRight">
+
+        </div>
+    </div>
+</section>
+
+<section id="section2">
+    <div class="row gap-md">
+        <div class="c1-3 animate__animated" data-reveal="animate__bounceInLeft">
+
+        </div>
+        <div class="c1-3 animate__animated animate__delay-2s" data-reveal="animate__bounceInDown">
+
+        </div>
+        <div class="c1-3 animate__animated animate__delay-4s" data-reveal="animate__bounceInRight">
+
+        </div>
+    </div>
+</section>
+
+<div style="margin-top: 7rem;"></div>
+
+
+</body>
+<script>
+
+    /* GO TOP ON LOAD */
+    window.onload = function () {
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        } else {
+            window.onbeforeunload = function () {
+                window.scrollTo(0, 0);
+            };
+        }
+    }
+
+    /* ============== observe top of page ============== */
+    const observerTopOfPage = new IntersectionObserver(function (entries, self) {
+        //console.log(entries);
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                let el = entry.target;
+                initOberverReveal();
+                console.log(el);
+            }
+        });
+    }, {
+        root: null,
+        threshold: [1],
+        rootMargin: '0px 0px 0px 0px'
+    });
+
+    /* ============== init top of page ============== */
+    const initOberverTopOfPage = () => {
+        let elTop = document.querySelector('#topOfPage');
+        observerTopOfPage.observe(elTop);
+    }
+    window.addEventListener('load', initOberverTopOfPage);
+
+
+    /*
+     * INTERSECTION OBSERVER ANIMATION
+     */
+
+    /* ============== reveal animation: observe ============== */
+    const observerAnime = new IntersectionObserver(function (entries, self) {
+        //console.log(entries);
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                let el = entry.target;
+                el.style.opacity = '1';
+
+                el.classList.add(el.dataset.reveal);
+                console.log(el);
+                self.unobserve(entry.target);
+            }
+        });
+    }, {
+        root: null,
+        threshold: [1],
+        rootMargin: '0px 0px 0px 0px'
+    });
+
+    /* ============== reveal animation: init ============== */
+    const initOberverReveal = () => {
+        let elsAnime = document.querySelectorAll('[data-reveal]');
+        elsAnime.forEach((el) => {
+            el.style.opacity = '0';
+            el.classList.remove(el.dataset.reveal);
+            observerAnime.observe(el);
+        });
+    }
+    window.addEventListener('load', initOberverReveal);
+
+
+</script>
+</html>
