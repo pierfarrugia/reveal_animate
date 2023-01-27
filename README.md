@@ -17,12 +17,7 @@ By the way, if you need only 2 or 3 animations (left, right zoom), you can just 
 ---
 *use ctrl-click or right button on link, open in new tab*
 
-
-[Test it on CodePen](https://codepen.io/pierfarrugia/pen/jOKLmzG)
-
-![alt text](https://aonecommunication.ch/content/text_overflow/text_overflow.webp)
-
-[See it in action full screen](https://aonecommunication.ch/content/text_overflow/text_overflow.html)
+[See it in action full screen](https://aonecommunication.ch/content/reveal_animate/reveal_animate.html)
 
 [GitHub](https://github.com/pierfarrugia/text_overflow)
 
